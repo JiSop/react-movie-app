@@ -1,9 +1,9 @@
 import React from 'react';
-import 'MovieList.scss';
+import './MovieList.scss';
 
 import MovieItem from "./MovieItem";
 
-const MovieList = (movieList) => {
+const MovieList = ({ movieList }) => {
   return (
     <div className="movie-list">
       { movieList.map( movie => (
