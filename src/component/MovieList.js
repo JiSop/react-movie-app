@@ -10,10 +10,12 @@ const MovieList = ({ movieList }) => {
         <MovieItem
           key={ movie.id }
           id={ movie.id }
-          year={ movie.year }
           title={ movie.title }
-          poster={ movie.medium_cover_image }
+          year={ movie.year }
           genres={ movie.genres }
+          runtime={ movie.runtime }
+          rating={ movie.rating }
+          poster={ movie.medium_cover_image }
         />
       ) ) }
     </div>
