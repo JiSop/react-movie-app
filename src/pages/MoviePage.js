@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Categories from '../component/Categories';
 import MovieList from '../component/MovieList';
 

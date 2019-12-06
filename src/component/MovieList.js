@@ -1,42 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './MovieList.scss';
-
+import usePromise from '../lib/usePromise';
 import MovieItem from './MovieItem';
-import * as api from '../lib/api';
+import { getMovieList } from '../lib/api';
 
 const MovieList = ( { category } ) => {
-  const [ movies, setMovies ] = useState( null );
-  const [ loading, setLoading ] = useState( false );
-
-  useEffect( () => {
-    const fetchData = async () => {
-      setLoading( true );
-      try {
-        const query = category === 'All' ? '' : `genre=${ category }`;
-        const {
-          data: {
-            data: { movies }
-          }
-        } = await api.getMovieList( query );
-        setMovies( movies );
-      } catch (e) {
-        console.log( e );
-      }
-      setLoading( false );
-    };
-    fetchData();
-  }, [ category ] );
+  const [ loading, response, error ] = usePromise( () => {
+      const query = category === 'All' ? '' : `genre=${ category }`;
+      return getMovieList( query );
+    }, [ category ]
+  );
 
   if ( loading ) {
     return (
       <div className="loader">
         <span className="loader-text">Loading...</span>
       </div>
-    )
+    );
   }
-  if ( !movies ) {
+  if ( !response ) {
     return null;
   }
+  if ( error ) {
+    return (
+      <div className="loader">
+        <span className="error-text">Something Wrong!</span>
+      </div>
+    );
+  }
+
+  const { movies } = response.data.data;
+
   return (
     <div className="movie-list">
       { movies.map( movie => (
