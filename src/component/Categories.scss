@@ -10,19 +10,28 @@
   }
 }
 
-.categorie {
-  color: white;
+.category {
   font-size: 1.125rem;
   cursor: pointer;
   white-space: pre;
   text-decoration: none;
-    //color: inherit;
+  color: #a7a8aa;
   padding-bottom: 0.25rem;
 
   &:hover {
-    color: #495057;
+    color: white;
   }
+
   & + & {
     margin-left: 1rem;
+  }
+}
+
+.active {
+  font-weight: 600;
+  border-bottom: 2px solid #62dafc;
+  color: #62dafc;
+  &:hover {
+    color: #cff3fe;
   }
 }

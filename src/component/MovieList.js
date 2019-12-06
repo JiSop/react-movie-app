@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './MovieList.scss';
 
 import MovieItem from './MovieItem';
-import * as api from "../lib/api";
+import * as api from '../lib/api';
 
-const MovieList = () => {
+const MovieList = ( { category } ) => {
   const [ movies, setMovies ] = useState( null );
   const [ loading, setLoading ] = useState( false );
 
@@ -12,11 +12,12 @@ const MovieList = () => {
     const fetchData = async () => {
       setLoading( true );
       try {
+        const query = category === 'All' ? '' : `genre=${ category }`;
         const {
           data: {
             data: { movies }
           }
-        } = await api.getMovieList('minimum_rating=9&order_by=asc');
+        } = await api.getMovieList( query );
         setMovies( movies );
       } catch (e) {
         console.log( e );
@@ -24,7 +25,7 @@ const MovieList = () => {
       setLoading( false );
     };
     fetchData();
-  }, [] );
+  }, [ category ] );
 
   if ( loading ) {
     return (

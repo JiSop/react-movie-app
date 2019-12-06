@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 
-import * as api from './lib/api';
 import MovieList from "./component/MovieList";
 import Categories from "./component/Categories";
 
 function App() {
+  const [ category, setCategory ] = useState( 'All' );
+
+  const onSelect = useCallback( category =>
+    setCategory( category ), [] );
+
   return (
     <>
-      <Categories />
-      <section className="container">
-        <MovieList/>
-      </section>
+      <Categories
+        category={ category }
+        onSelect={ onSelect }
+      />
+      <div className="container">
+        <MovieList category={ category }/>
+      </div>
     </>
   );
 }

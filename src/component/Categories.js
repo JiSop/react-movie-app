@@ -14,11 +14,17 @@ const genres = [
   'Sci-Fi',
 ];
 
-const Categories = () => {
+const Categories = ( { category, onSelect } ) => {
   return (
     <div className="categories">
       { genres.map( genre => (
-        <div className="categorie" key={ genre }>{ genre }</div>
+        <div
+          className={ `category ${ category === genre ? "active" : "" }` }
+          key={ genre }
+          onClick={ () => onSelect( genre ) }
+        >
+          { genre }
+        </div>
       ) ) }
     </div>
   );
