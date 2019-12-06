@@ -1,26 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import './App.scss';
 
-import MovieList from "./component/MovieList";
-import Categories from "./component/Categories";
+import MoviePage from './pages/MoviePage';
 
-function App() {
-  const [ category, setCategory ] = useState( 'All' );
-
-  const onSelect = useCallback( category =>
-    setCategory( category ), [] );
-
-  return (
-    <>
-      <Categories
-        category={ category }
-        onSelect={ onSelect }
-      />
-      <div className="container">
-        <MovieList category={ category }/>
-      </div>
-    </>
-  );
-}
+const App = () => {
+  return <Route path="/:category?" component={ MoviePage }/>;
+};
 
 export default App;

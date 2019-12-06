@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './Categories.scss';
 
 const genres = [
@@ -14,17 +15,19 @@ const genres = [
   'Sci-Fi',
 ];
 
-const Categories = ( { category, onSelect } ) => {
+const Categories = () => {
   return (
     <div className="categories">
       { genres.map( genre => (
-        <div
-          className={ `category ${ category === genre ? "active" : "" }` }
+        <NavLink
           key={ genre }
-          onClick={ () => onSelect( genre ) }
+          className="category"
+          activeClassName="active"
+          exact={ genre === 'All' }
+          to={ genre === 'All' ? '/' : `/${ genre }` }
         >
-          { genre }
-        </div>
+          <div>{ genre }</div>
+        </NavLink>
       ) ) }
     </div>
   );
