@@ -1,12 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MovieList.scss';
 
-import MovieItem from "./MovieItem";
+import MovieItem from './MovieItem';
+import * as api from "../lib/api";
 
-const MovieList = ({ movieList }) => {
+const MovieList = () => {
+  const [ movies, setMovies ] = useState( null );
+  const [ loading, setLoading ] = useState( false );
+
+  useEffect( () => {
+    const fetchData = async () => {
+      setLoading( true );
+      try {
+        const {
+          data: {
+            data: { movies }
+          }
+        } = await api.getMovieList('minimum_rating=9&order_by=asc');
+        setMovies( movies );
+      } catch (e) {
+        console.log( e );
+      }
+      setLoading( false );
+    };
+    fetchData();
+  }, [] );
+
+  if ( loading ) {
+    return (
+      <div className="loader">
+        <span className="loader-text">Loading...</span>
+      </div>
+    )
+  }
+  if ( !movies ) {
+    return null;
+  }
   return (
     <div className="movie-list">
-      { movieList.map( movie => (
+      { movies.map( movie => (
         <MovieItem
           key={ movie.id }
           id={ movie.id }
