@@ -1,14 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MovieList.scss';
-import usePromise from '../lib/usePromise';
-import MovieItem from './MovieItem';
 import { getMovieList } from '../lib/api';
+import usePromise from '../lib/usePromise';
 import useInfiniteScroll from '../lib/useInfiniteScroll';
+import MovieItem from './MovieItem';
 
-const MovieList = ( { category } ) => {
+const MovieList = ( { match } ) => {
+  const category = match.params.category || 'All';
   const [ data, setData ] = useState( [] );
-  const [ page, setPage ] = useState(2);
-  const [ isFetching, setIsFetching ] = useInfiniteScroll( moreData );
+  const [ page, setPage ] = useState( 2 );
+  const [ setIsFetching ] = useInfiniteScroll( moreData );
+
+  // 호이스팅 때문에 함수 선언문을 사용
+  function moreData() {
+    const query = category === 'All'
+      ? `sort_by=rating&page=${ page }`
+      : `genre=${ category }&sort_by=rating&order_by=desc&page=${ page }`;
+    getMovieList( query ).then( res => {
+      setData( prevData => [ ...prevData, ...res.data.data.movies ] );
+      setPage(prevPage => prevPage + 1 );
+      setIsFetching( false );
+    } );
+  }
 
   const [ loading, response, error ] = usePromise( () => {
     const query = category === 'All'
@@ -17,17 +30,6 @@ const MovieList = ( { category } ) => {
     return getMovieList( query );
     }, [ category ]
   );
-
-  function moreData() {
-    const query = category === 'All'
-      ? `sort_by=rating&page=${ page }`
-      : `genre=${ category }&sort_by=rating&order_by=desc&page=${ page }`;
-    getMovieList( query ).then( res => {
-      setData( prev => [ ...prev, ...res.data.data.movies ] );
-      setPage(prevPage => prevPage + 1 );
-      setIsFetching( false );
-    } );
-  }
 
   useEffect( () => {
     if ( !response ) return;
@@ -49,26 +51,6 @@ const MovieList = ( { category } ) => {
       </div>
     );
   }
-
-  // if ( loading ) {
-  //   return (
-  //     <div className="loader">
-  //       <span className="loader-text">Loading...</span>
-  //     </div>
-  //   );
-  // }
-  // if ( !response ) {
-  //   return null;
-  // }
-  // if ( error ) {
-  //   return (
-  //     <div className="loader">
-  //       <span className="error-text">Something Wrong!</span>
-  //     </div>
-  //   );
-  // }
-
-  // const { movies } = response.data.data;
 
   return (
     <div className="movie-list">

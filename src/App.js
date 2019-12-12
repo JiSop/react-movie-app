@@ -1,11 +1,22 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.scss';
-
-import MoviePage from './pages/MoviePage';
+import MovieList from './component/MovieList';
+import MovieDetail from "./component/MovieDetail";
+import Categories from "./component/Categories";
 
 const App = () => {
-  return <Route path="/:category?" component={ MoviePage }/>;
+  return (
+    <>
+      <Categories/>
+      <div className="container">
+        <Switch>
+          <Route path="/detail/:id" component={ MovieDetail }/>
+          <Route path="/:category?" component={ MovieList }/>
+        </Switch>
+      </div>
+    </>
+  );
 };
 
 export default App;
