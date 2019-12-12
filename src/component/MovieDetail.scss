@@ -1,0 +1,30 @@
+.movie-detail {
+  color: white;
+  width: 80%;
+}
+
+.detail-head {
+  margin: 0 110px 40px 110px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  img {
+    margin: 0 10px;
+  }
+  .detail-data {
+    margin: 0 10px;
+    max-width: 458px;
+    min-width: 400px;
+    h2 {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+    h3 {
+      display: flex;
+      justify-content: center;
+      margin-top: 2px;
+    }
+  }
+}
