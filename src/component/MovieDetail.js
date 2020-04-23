@@ -44,17 +44,17 @@ const MovieDetail = ( { match } ) => {
           </div>
         </div>
       </div>
-      <div className="detail-screenshot">
-        <img src={ movie.medium_screenshot_image1 } alt={ `${ movie.title } screenshot1` }/>
-        <img src={ movie.medium_screenshot_image2 } alt={ `${ movie.title } screenshot2` }/>
-        <img src={ movie.medium_screenshot_image3 } alt={ `${ movie.title } screenshot3` }/>
-      </div>
-      <div className="similar-movies">
-        <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>
-        <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>
-        <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>
-        <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>
-      </div>
+      {/*<div className="detail-screenshot">*/}
+      {/*  <img src={ movie.medium_screenshot_image1 } alt={ `${ movie.title } screenshot1` }/>*/}
+      {/*  <img src={ movie.medium_screenshot_image2 } alt={ `${ movie.title } screenshot2` }/>*/}
+      {/*  <img src={ movie.medium_screenshot_image3 } alt={ `${ movie.title } screenshot3` }/>*/}
+      {/*</div>*/}
+      {/*<div className="similar-movies">*/}
+      {/*  <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>*/}
+      {/*  <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>*/}
+      {/*  <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>*/}
+      {/*  <img src="https://via.placeholder.com/230x345" alt="movieTitle"/>*/}
+      {/*</div>*/}
     </div>
   );
 };
